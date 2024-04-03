@@ -1,5 +1,8 @@
 import fastify from "fastify";
+import fastifyCors from "@fastify/cors";
+
 import {
+   ZodTypeProvider,
    serializerCompiler,
    validatorCompiler,
 } from "fastify-type-provider-zod";
@@ -9,8 +12,13 @@ import { getEvent } from "./routes/get-event";
 import { getAttendeeBadge } from "./routes/get-attendee-badge";
 import { checkIn } from "./routes/check-in";
 import { getEventAttendees } from "./routes/get-event-attendees";
+import { errorHandler } from "./utils/error-handle";
 
-const app = fastify();
+export const app = fastify().withTypeProvider<ZodTypeProvider>();
+
+app.register(fastifyCors, {
+   origin: "*",
+});
 
 app.setValidatorCompiler(validatorCompiler);
 app.setSerializerCompiler(serializerCompiler);
@@ -22,6 +30,8 @@ app.register(getAttendeeBadge);
 app.register(checkIn);
 app.register(getEventAttendees);
 
-app.listen({ port: 3333 }).then(() => {
+app.setErrorHandler(errorHandler);
+
+app.listen({ port: 3333, host: "0.0.0.0" }).then(() => {
    console.log("HTTP server running");
 });
