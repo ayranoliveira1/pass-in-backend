@@ -1,5 +1,5 @@
 import { ZodTypeProvider } from "fastify-type-provider-zod";
-import z from "zod";
+import { z } from "zod";
 import { prisma } from "../lib/prisma";
 import { generateSlug } from "../utils/generate-slug";
 import { FastifyInstance } from "fastify";
@@ -17,7 +17,7 @@ export async function createEvent(app: FastifyInstance) {
             }),
             response: {
                201: z.object({
-                  eventId: z.string().ulid(),
+                  eventId: z.string().uuid(),
                }),
             },
          },
