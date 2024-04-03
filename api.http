@@ -2,17 +2,22 @@ POST http://localhost:3333/events
 Content-Type: application/json
 
 {
-   "title": "Novo Evento 34",
+   "title": "Novo Evento",
    "details": "um evento muito legal",
    "maximumAttendees": 1
 }
 
 ###
 
-POST http://localhost:3333/events/8f48b21f-5503-46a3-b67f-6a84536ca2f3/attendees
+POST http://localhost:3333/events/6465826f-e240-40b2-8e97-91134cbfd55f/attendees
 Content-Type: application/json
 
 {
    "name": "Johnn Doe",
-   "email": "agate334t5@gmail.com"
+   "email": "agate34t5@gmail.com"
 }
+
+###
+
+GET http://localhost:3333/events/6465826f-e240-40b2-8e97-91134cbfd55f
+
