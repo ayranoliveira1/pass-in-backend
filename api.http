@@ -29,3 +29,8 @@ GET http://localhost:3333/attendees/5/badge
 ###
 
 Get http://localhost:3333/attendees/5/checkin
+
+###
+
+GET http://localhost:3333/events/6465826f-e240-40b2-8e97-91134cbfd55f/attendees?query=Johnn
+
