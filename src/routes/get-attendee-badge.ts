@@ -5,6 +5,7 @@ import { prisma } from "../lib/prisma";
 import { BadRequest } from "./_erros/bad-request";
 
 export async function getAttendeeBadge(app: FastifyInstance) {
+   // Get an attendee badge
    app.withTypeProvider<ZodTypeProvider>().get(
       "/attendees/:attendeeId/badge",
       {
@@ -50,6 +51,7 @@ export async function getAttendeeBadge(app: FastifyInstance) {
             throw new BadRequest("Attendee not found");
          }
 
+         // Build the check-in URL
          const baseURL = `${request.protocol}://${request.hostname}`;
 
          const checkInUrl = new URL(
@@ -57,6 +59,7 @@ export async function getAttendeeBadge(app: FastifyInstance) {
             baseURL
          );
 
+         // Return the attendee badge
          return reply.status(200).send({
             badge: {
                name: attendee.name,

@@ -4,6 +4,7 @@ import z from "zod";
 import { prisma } from "../lib/prisma";
 
 export async function getEventAttendees(app: FastifyInstance) {
+   // Get event attendees
    app.withTypeProvider<ZodTypeProvider>().get(
       "/events/:eventId/attendees",
       {
@@ -36,6 +37,7 @@ export async function getEventAttendees(app: FastifyInstance) {
          const { eventId } = request.params;
          const { pageIndex, query } = request.query;
 
+         // Get attendees
          const attendees = await prisma.attendee.findMany({
             where: query
                ? {
@@ -62,6 +64,7 @@ export async function getEventAttendees(app: FastifyInstance) {
             },
          });
 
+         // Return attendees
          return reply.send({
             attendees: attendees.map((atttendee) => {
                return {

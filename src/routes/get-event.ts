@@ -5,6 +5,7 @@ import { prisma } from "../lib/prisma";
 import { BadRequest } from "./_erros/bad-request";
 
 export async function getEvent(app: FastifyInstance) {
+   // Get an event
    app.withTypeProvider<ZodTypeProvider>().get(
       "/events/:eventId",
       {
@@ -55,6 +56,7 @@ export async function getEvent(app: FastifyInstance) {
             throw new BadRequest("Event not found");
          }
 
+         // Return event
          return reply.status(200).send({
             event: {
                id: event.id,

@@ -5,6 +5,7 @@ import { prisma } from "../lib/prisma";
 import { BadRequest } from "./_erros/bad-request";
 
 export async function resgisterForEvent(app: FastifyInstance) {
+   // Register for an attendee
    app.withTypeProvider<ZodTypeProvider>().post(
       "/events/:eventId/attendees",
       {

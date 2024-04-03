@@ -19,10 +19,12 @@ import { errorHandler } from "./utils/error-handle";
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>();
 
+// CORS
 app.register(fastifyCors, {
    origin: "*",
 });
 
+// Swagger
 app.register(fastifySwagger, {
    swagger: {
       consumes: ["application/json"],
@@ -38,13 +40,16 @@ app.register(fastifySwagger, {
    transform: jsonSchemaTransform,
 });
 
+// Swagger UI route
 app.register(fastifySwaggerUi, {
    routePrefix: "/docs",
 });
 
+// Type validation
 app.setValidatorCompiler(validatorCompiler);
 app.setSerializerCompiler(serializerCompiler);
 
+// Routes
 app.register(createEvent);
 app.register(resgisterForEvent);
 app.register(getEvent);
@@ -52,8 +57,10 @@ app.register(getAttendeeBadge);
 app.register(checkIn);
 app.register(getEventAttendees);
 
+// Error handler
 app.setErrorHandler(errorHandler);
 
+// Start
 app.listen({ port: 3333, host: "0.0.0.0" }).then(() => {
    console.log("HTTP server running");
 });

@@ -5,6 +5,7 @@ import { prisma } from "../lib/prisma";
 import { BadRequest } from "./_erros/bad-request";
 
 export async function checkIn(app: FastifyInstance) {
+   // Check in an attendee
    app.withTypeProvider<ZodTypeProvider>().get(
       "/attendees/:attendeeId/checkin",
       {
@@ -34,12 +35,14 @@ export async function checkIn(app: FastifyInstance) {
             throw new BadRequest("Attendee already checked in");
          }
 
+         // Create check in
          await prisma.checkIn.create({
             data: {
                attendeeId,
             },
          });
 
+         // Return 201
          return reply.status(201).send();
       }
    );

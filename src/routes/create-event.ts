@@ -7,6 +7,7 @@ import { BadRequest } from "./_erros/bad-request";
 
 // Create Events
 export async function createEvent(app: FastifyInstance) {
+   // Create an event
    app.withTypeProvider<ZodTypeProvider>().post(
       "/events",
       {
@@ -36,12 +37,14 @@ export async function createEvent(app: FastifyInstance) {
             },
          });
 
+         // Check if event with same slug already exists
          if (eventWithSameSlug !== null) {
             throw new BadRequest(
                "Anther event with same title already exists."
             );
          }
 
+         // Create event
          const event = await prisma.event.create({
             data: {
                title,
@@ -51,6 +54,7 @@ export async function createEvent(app: FastifyInstance) {
             },
          });
 
+         // Return event
          return reply.status(201).send({ eventId: event.id });
       }
    );
