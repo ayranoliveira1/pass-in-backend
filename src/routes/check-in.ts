@@ -26,6 +26,7 @@ export async function checkIn(app: FastifyInstance) {
             },
          });
 
+         // Check if attendee already checked in
          if (attendeeCheckIn !== null) {
             throw new Error("Attendee already checked in");
          }
